@@ -21,8 +21,16 @@ def emotion_detector(text_to_analyse):
            'EmotionPredict')
     myobj = { "raw_document": { "text": text_to_analyse } }
     header = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
+    
+    # Get API response
     response = requests.post(url, json = myobj, headers=header, timeout=10)
+    
+    # Parse response to JSON
     formatted_response = json.loads(response.text)
+
+    # Get emotions scores
     scores = formatted_response['emotionPredictions'][0]['emotion']
+
+    # Get dominant emotion
     scores['dominant_emotion'] = max(scores, key=scores.get)
     return scores
