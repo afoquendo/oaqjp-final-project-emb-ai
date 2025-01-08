@@ -34,6 +34,9 @@ def emotion_dect():
     sadness_score = response['sadness']
     dominant_emotion = response['dominant_emotion']
 
+    if not dominant_emotion:
+        return "Invalid text! Please try again!."
+
     displayed_response = (
         "For the given statement, the system response is: "
         f"'anger': {anger_score}, 'disgust': {disgust_score}, 'fear': {fear_score}"
